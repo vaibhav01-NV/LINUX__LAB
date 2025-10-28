@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>linuxnet.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+html,footer,header{
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Custom MD PDF CSS
+ */
+html,footer,header{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+
+ }
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
+</head>
+
+<body>
+    <h1 id="%F0%9F%90%A7-linux-networking-guide-tranfer-or-copy-file-through-same-network">🐧 Linux Networking Guide (Tranfer or copy file through same network )</h1>
+<h2 id="%F0%9F%93%98-1-what-is-linux-networking">📘 1. What is Linux networking?</h2>
+<pre class="hljs"><code><div>Linux networking is the <span class="hljs-built_in">set</span> of kernel subsystems, userspace tools, configuration files, protocols and services that allow a Linux machine to exchange data with other machines — on the same <span class="hljs-built_in">local</span> network or across the internet.
+It covers everything from the physical NIC and link layer up through IP routing, transport protocols (TCP/UDP), sockets, firewalling, and application-level services (HTTP, SSH, DNS, etc.).
+
+At runtime, Linux networking handles:
+
+moving bits between hardware and applications,
+
+addressing and routing packets,
+
+secure and reliable transfer (via TCP/SSH),
+
+policy enforcement (firewalls, iptables/nftables),
+
+virtualization of networks (namespaces, bridges, veth pairs, VLANs),
+</div></code></pre>
+<hr>
+<h2 id="2-why-do-networking-at-all-the-purpose--goals">2. Why do networking at all? The purpose &amp; goals</h2>
+<pre class="hljs"><code><div>At the highest level, networking exists to <span class="hljs-built_in">let</span> computers communicate. On Linux specifically, we network to:
+
+Share resources — files, printers, databases, storage, compute.
+
+Provide services — web servers, mail servers, DNS, authentication (LDAP), remote shells (SSH).
+
+Centralize management &amp; automation — configuration management, monitoring, logging.
+
+Scale systems — distribute workloads across multiple machines (load balancers, clusters).
+
+Enable remote access — administer machines, transfer files, provide APIs.
+
+Isolate &amp; secure environments — using firewalls, namespaces, containers and VLANs.
+
+Optimize performance — route/shape traffic, use offloads, manage QoS <span class="hljs-keyword">for</span> latency-sensitive apps.
+
+So—networking is the foundation that transforms a <span class="hljs-built_in">set</span> of isolated computers into an interconnected system that serves users and applications.
+</div></code></pre>
+<hr>
+<h2 id="3-the-conceptual-stack-layers-in-linux-networking">3. The conceptual stack (layers) in Linux networking</h2>
+<pre class="hljs"><code><div>A simplified layering helps reason about responsibilities:
+
+A. Physical / Link Layer
+🔹Network Interface Card (NIC), drivers, Ethernet/Wi-Fi, MAC addresses, ARP.
+🔹Tools: ethtool, ip link.
+
+Network Layer (IP)
+
+IPv4 / IPv6 addressing, subnets, routing, fragmentation.
+
+Tools: ip addr, ip route, ip neigh.
+
+Transport Layer
+
+TCP (reliable, ordered), UDP (connectionless), SCTP.
+
+Tools: ss, netstat, tcpdump.
+
+Socket API &amp; Kernel Networking Stack
+
+socket(2) interface used by applications. Kernel does buffering, flow control, retransmit.
+
+Netfilter hooks allow packet inspection/manipulation.
+
+Application Layer
+
+HTTP, SSH, FTP, DNS, NFS, SMB — the services that use sockets to exchange data.
+
+Management / Control Plane
+
+System configuration files, NetworkManager, systemd-networkd, DHCP, and orchestration (Ansible, Kubernetes).
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%8C%90-basic-network-configuration">🌐 Basic Network Configuration</h2>
+<h3 id="view-ip-configuration">View IP Configuration</h3>
+<pre class="hljs"><code><div>🔹 ifconfig
+
+</div></code></pre>
+<hr>
+<h1 id="%F0%9F%94%90-2-ssh-secure-shell">🔐 2. SSH (Secure Shell)</h1>
+<h3 id="install-ssh-service">Install SSH Service</h3>
+<pre class="hljs"><code><div>🔹 sudo apt install openssh-server      
+🔹 sudo systemctl <span class="hljs-built_in">enable</span> ssh
+🔹 sudo systemctl start ssh
+
+</div></code></pre>
+<hr>
+<h3 id="check-ssh-service-status">Check SSH Service Status</h3>
+<pre class="hljs"><code><div>🔹 sudo systemctl status ssh
+</div></code></pre>
+<hr>
+<h3 id="connect-to-a-remote-system">Connect to a Remote System</h3>
+<pre class="hljs"><code><div>🔹 ssh username@192.168.1.5
+</div></code></pre>
+<hr>
+<h3 id="copy-files-using-scp-secure-copy">Copy Files Using SCP (Secure Copy)</h3>
+<pre class="hljs"><code><div>🔹 scp file.txt username@192.168.1.5:/home/username/
+</div></code></pre>
+<hr>
+<h3 id="copy-a-directory-recursively">Copy a Directory Recursively</h3>
+<pre class="hljs"><code><div>🔹 scp -r myfolder username@192.168.1.5:/home/username/
+</div></code></pre>
+<hr>
+<h3 id="copy-ssh-key-to-remote-host">Copy SSH Key to Remote Host</h3>
+<pre class="hljs"><code><div>🔹ssh-copy-id username@192.168.1.5
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%93%82-3-ftp-file-transfer-protocol">📂 3. FTP (File Transfer Protocol)</h2>
+<h3 id="install-ftp-server">Install FTP Server</h3>
+<pre class="hljs"><code><div>🔹sudo apt install vsftpd       <span class="hljs-comment"># Ubuntu/Debian</span>
+🔹sudo systemctl <span class="hljs-built_in">enable</span> vsftpd
+🔹sudo systemctl start vsftpd
+</div></code></pre>
+<hr>
+<h3 id="check-ftp-service-status">Check FTP Service Status</h3>
+<pre class="hljs"><code><div>🔹sudo systemctl status vsftpd
+</div></code></pre>
+<hr>
+<h3 id="connect-to-an-ftp-server">Connect to an FTP Server</h3>
+<pre class="hljs"><code><div>🔹ftp 192.168.1.5
+</div></code></pre>
+<hr>
+<h3 id="login-to-ftp">Login to FTP</h3>
+<pre class="hljs"><code><div>🔹Name (192.168.1.5:yourusername): ftpuser
+🔹Password: ********
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/IMG_2785-1.JPG" alt="alt text"></p>
+<hr>
+<h3 id="basic-ftp-commands">Basic FTP Commands</h3>
+<pre class="hljs"><code><div>🔹ls           <span class="hljs-comment"># List files</span>
+🔹<span class="hljs-built_in">cd</span> folder    <span class="hljs-comment"># Change directory</span>
+🔹get file.txt <span class="hljs-comment"># Download file</span>
+🔹put file.txt <span class="hljs-comment"># Upload file</span>
+🔹mget *       <span class="hljs-comment"># Download multiple files</span>
+🔹<span class="hljs-built_in">bye</span>          <span class="hljs-comment"># Exit FTP</span>
+</div></code></pre>
+<hr>
+<h3 id="ftp-configuration-file-server">FTP Configuration File (Server)</h3>
+<pre class="hljs"><code><div>🔹/etc/vsftpd.conf
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%91%A4-4-user-and-group-access-management">👤 4. User and Group Access Management</h2>
+<h3 id="create-a-new-user">Create a New User</h3>
+<pre class="hljs"><code><div>🔹sudo adduser username
+</div></code></pre>
+<hr>
+<h3 id="delete-a-user">Delete a User</h3>
+<pre class="hljs"><code><div>🔹sudo deluser username
+</div></code></pre>
+<hr>
+<h3 id="create-a-group">Create a Group</h3>
+<pre class="hljs"><code><div>🔹sudo groupadd developers
+</div></code></pre>
+<hr>
+<h3 id="add-user-to-a-group">Add User to a Group</h3>
+<pre class="hljs"><code><div>🔹sudo usermod -aG developers username
+</div></code></pre>
+<hr>
+<h3 id="view-users-groups">View User’s Groups</h3>
+<pre class="hljs"><code><div>🔹groups username
+</div></code></pre>
+<hr>
+<h3 id="change-a-file-owner">Change a File Owner</h3>
+<pre class="hljs"><code><div>🔹sudo chown username filename
+</div></code></pre>
+<hr>
+<h3 id="change-group-ownership">Change Group Ownership</h3>
+<pre class="hljs"><code><div>🔹sudo chgrp developers filename
+</div></code></pre>
+<hr>
+<h3 id="change-file-permissions">Change File Permissions</h3>
+<pre class="hljs"><code><div>🔹chmod 755 filename
+
+7 = <span class="hljs-built_in">read</span>, write, execute
+
+5 = <span class="hljs-built_in">read</span>, execute
+</div></code></pre>
+<hr>
+<h3 id="view-file-permissions">View File Permissions</h3>
+<pre class="hljs"><code><div>🔹ls -l
+</div></code></pre>
+<hr>
+<h3 id="switch-to-another-user">Switch to Another User</h3>
+<pre class="hljs"><code><div>🔹su - username
+</div></code></pre>
+<hr>
+<h3 id="lockunlock-a-user-account">Lock/Unlock a User Account</h3>
+<pre class="hljs"><code><div>🔹sudo passwd -l username     <span class="hljs-comment"># Lock</span>
+🔹sudo passwd -u username     <span class="hljs-comment"># Unlock</span>
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%A7%A0-5-useful-command-summary">🧠 5. Useful Command Summary</h2>
+<pre class="hljs"><code><div>
+| Command         | Description             |
+| --------------- | ----------------------- |
+| `ip addr`       | Show IP address         |
+| `ping`          | Test connectivity       |
+| `ssh user@host` | Remote login            |
+| `scp`           | Secure file copy        |
+| `ftp`           | Connect to FTP server   |
+| `adduser`       | Create new user         |
+| `groupadd`      | Create new group        |
+| `chmod`         | Change file permissions |
+| `chown`         | Change ownership        |
+
+</div></code></pre>
+<hr>
+<h2 id="%F0%9F%93%82-6-method-1--using-scp-secure-copy">📂 6. Method 1 — Using scp (Secure Copy)</h2>
+<h3 id="method-1--using-scp-secure-copy">Method 1 — Using scp (Secure Copy)</h3>
+<pre class="hljs"><code><div>🔹scp [source_file] [username]@[destination_IP]:[destination_path]
+</div></code></pre>
+<hr>
+<h4 id="example">Example:</h4>
+<pre class="hljs"><code><div>🔹From System A (sender):
+scp /home/user/Documents/test.txt ubuntu@192.168.1.15:/home/ubuntu/Desktop/
+</div></code></pre>
+<hr>
+<p>NOTE - Then enter the password of the destination (ubuntu) user when prompted.</p>
+<p>✅ The file test.txt will be copied to /home/ubuntu/Desktop/ on System B.</p>
+<hr>
+<h3 id="%F0%9F%93%81-method-2--using-scp-for-directories">📁 Method 2 — Using scp for Directories</h3>
+<pre class="hljs"><code><div>To copy a folder:
+scp -r /home/user/myfolder ubuntu@192.168.1.15:/home/ubuntu/Documents/
+</div></code></pre>
+<hr>
+<h3 id="%E2%9A%A1-method-3--using-rsync-faster-resume-support">⚡ Method 3 — Using rsync (Faster, Resume Support)</h3>
+<pre class="hljs"><code><div>🔹 Install rsync <span class="hljs-keyword">if</span> not installed:
+   sudo apt install rsync
+
+🔹 Example:
+rsync -avz /home/user/Documents/ ubuntu@192.168.1.15:/home/ubuntu/Backup/
+
+
+-a → archive mode (preserve permissions)
+
+-v → verbose
+
+-z → compress data
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/IMG_2786-1.JPG" alt="alt text"></p>
+<h2 id="%F0%9F%A7%A9-option-1--log-into-the-2nd-system-via-ssh-and-delete-manually">🧩 Option 1 — Log into the 2nd system via SSH and delete manually</h2>
+<h3 id="connect-via-ssh-to-the-2nd-system">Connect via SSH to the 2nd system:</h3>
+<pre class="hljs"><code><div>ssh ubuntu@192.168.1.15
+</div></code></pre>
+<hr>
+<p>(Replace ubuntu with the actual username and 192.168.1.15 with the IP of the 2nd system.)</p>
+<h3 id="navigate-to-the-file-location">Navigate to the file location:</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">cd</span> /home/ubuntu/Desktop
+</div></code></pre>
+<hr>
+<h3 id="delete-the-file">Delete the file:</h3>
+<pre class="hljs"><code><div>rm test.txt
+</div></code></pre>
+<hr>
+<h3 id="exit-ssh">Exit SSH:</h3>
+<pre class="hljs"><code><div><span class="hljs-built_in">exit</span>
+</div></code></pre>
+<hr>
+<h2 id="%E2%9A%A1-option-2--delete-directly-from-the-1st-system-without-logging-in">⚡ Option 2 — Delete directly from the 1st system (without logging in)</h2>
+<p>You can run a remote command over SSH:</p>
+<h3 id="%F0%9F%97%91%EF%B8%8F-to-delete-a-single-file">🗑️ To delete a single file:</h3>
+<pre class="hljs"><code><div>ssh ubuntu@192.168.1.15 <span class="hljs-string">"rm /home/ubuntu/Desktop/test.txt"</span>
+</div></code></pre>
+<hr>
+<h3 id="%F0%9F%97%91%EF%B8%8F-to-delete-a-folder">🗑️ To delete a folder:</h3>
+<pre class="hljs"><code><div>ssh ubuntu@192.168.1.15 <span class="hljs-string">"ls /home/ubuntu/Desktop"</span>
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/IMG_2787-1.JPG" alt="alt text"></p>
+<hr>
+
+</body>
+
+</html>
