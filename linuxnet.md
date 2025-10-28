@@ -157,8 +157,7 @@ System configuration files, NetworkManager, systemd-networkd, DHCP, and orchestr
 🔹Name (192.168.1.5:yourusername): ftpuser
 🔹Password: ********
 ```
-![alt text](IMG_2785-1.JPG)
-
+![alt text](IMG_2785.png)
 ---
 
 ### Basic FTP Commands
@@ -315,7 +314,8 @@ rsync -avz /home/user/Documents/ ubuntu@192.168.1.15:/home/ubuntu/Backup/
 
 -z → compress data
 ```
-![alt text](IMG_2786-1.JPG)
+![alt text](IMG_2786.png)
+
 
 
 
@@ -362,6 +362,6 @@ ssh ubuntu@192.168.1.15 "rm /home/ubuntu/Desktop/test.txt"
 ```bash
 ssh ubuntu@192.168.1.15 "ls /home/ubuntu/Desktop"
 ```
-![alt text](IMG_2787-1.JPG)
+![alt text](IMG_2787.png)
 
 ---
