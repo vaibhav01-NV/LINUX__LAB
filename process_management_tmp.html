@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>process_management.md</title>
+    <meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+    
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+html,footer,header{
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Custom MD PDF CSS
+ */
+html,footer,header{
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+
+ }
+body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+<link rel="stylesheet" href="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/R%3A%5C2.Travail%5C1.Enseignement%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css"><link rel="stylesheet" href="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/D%3A%5Crdaros%5CCours%5C_1.Outils%5C2.Developpement%5C1.SCSS%5Cmain.css" type="text/css">
+</head>
+
+<body>
+    <h1 id="%F0%9F%90%A7-linux-process-management-%E2%80%93-assignment">🐧 Linux Process Management – Assignment</h1>
+<hr>
+<h2 id="%F0%9F%93%98-introduction">📘 Introduction</h2>
+<p><strong>Process Management</strong> in Linux refers to handling processes — from their creation, execution, and resource allocation to their termination.<br>
+Linux provides various tools and commands to <strong>view, monitor, control, and optimize</strong> processes efficiently.</p>
+<p>Each process has a unique <strong>PID (Process ID)</strong> and runs within its own <strong>execution environment</strong>. System administrators use these tools to ensure the system remains stable and performs optimally.</p>
+<hr>
+<h2 id="%F0%9F%94%B9-1-viewing-all-processes">🔹 1. Viewing All Processes</h2>
+<p><strong>Theory:</strong><br>
+The <code>ps</code> command provides a snapshot of all running processes in the system. It helps identify the user, CPU usage, memory usage, and status of each process.</p>
+<p><strong>Command:</strong></p>
+<pre class="hljs"><code><div>ps aux
+
+</div></code></pre>
+<p>Explanation:</p>
+<p>a → Show processes for all users</p>
+<p>u → Display the user/owner of each process</p>
+<p>x → Show processes not attached to any terminal</p>
+<p>Example Output:</p>
+<pre class="hljs"><code><div>USER       PID  %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.1 167500  1100 ?        Ss   Sep25   0:05 /sbin/init
+vibhu     1234  1.2  1.5 274532 15632 ?        Sl   10:15   0:12 /usr/bin/python3 script.py
+mysql     2001  0.5  2.0 450000 20988 ?        Ssl  Sep25   1:02 /usr/sbin/mysqld
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image111.png" alt="alt text"></p>
+<h2 id="%F0%9F%8C%B2-2-process-tree">🌲 2. Process Tree</h2>
+<p>Theory:</p>
+<p>Processes in Linux have parent–child relationships.<br>
+The pstree command visualizes this hierarchy, starting from the root process (systemd or init).<br>
+Command:</p>
+<pre class="hljs"><code><div>pstree -p
+</div></code></pre>
+<p>Example Output:</p>
+<pre class="hljs"><code><div>
+systemd(1)─┬─NetworkManager(778)
+           ├─sshd(895)─┬─sshd(1023)───bash(1024)───pstree(1101)
+           ├─mysqld(2001)
+           └─python3(1234)
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image112.png" alt="alt text"></p>
+<h2 id="%F0%9F%93%8A-3-real-time-process-monitoring">📊 3. Real-Time Process Monitoring</h2>
+<p>Theory:</p>
+<p>top displays live information about running processes — CPU and memory usage, load average, and system uptime. It helps monitor system performance dynamically.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>top
+</div></code></pre>
+<p>Example Output (partial):</p>
+<pre class="hljs"><code><div>top - 10:20:51 up 2 days,  3:12,  2 users,  load average: 0.22, 0.33, 0.45
+Tasks: 197 total,   1 running, 196 sleeping,   0 stopped,   0 zombie
+%Cpu(s): 12.3 us,  5.4 sy,  0.0 ni, 80.1 id,  2.2 wa,  0.0 hi,  0.0 si,  0.0 st
+</div></code></pre>
+<p>👉 Press q to quit.<br>
+<img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image113.png" alt="alt text"></p>
+<h2 id="%E2%9A%A1-4-adjusting-process-priority">⚡ 4. Adjusting Process Priority</h2>
+<p>Theory:</p>
+<p>The Linux kernel schedules CPU time among processes based on their priority. Lower “nice” values indicate higher priority. nice and renice control these values.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>nice -n 10 sleep 300 &amp;
+renice -n -5 -p 3050
+</div></code></pre>
+<p>Explanation:</p>
+<ul>
+<li>
+<p>nice → Start a process with defined priority</p>
+</li>
+<li>
+<p>renice → Change the priority of a running process<br>
+<img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image114.png" alt="alt text"></p>
+</li>
+</ul>
+<h2 id="%F0%9F%94%A7-5-cpu-affinity-bind-process-to-cpu-core">🔧 5. CPU Affinity (Bind Process to CPU Core)</h2>
+<p>Theory:</p>
+<p>CPU affinity binds a process to specific CPU cores. This ensures better cache performance and control over CPU resource distribution.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>taskset -cp 3050
+taskset -cp 1 3050
+
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image115.png" alt="alt text"></p>
+<h2 id="%F0%9F%93%82-6-io-scheduling-priority">📂 6. I/O Scheduling Priority</h2>
+<p>Theory:</p>
+<p>Processes performing disk I/O can be prioritized using ionice. It controls how aggressively a process performs read/write operations compared to others.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>ionice -c 3 -p 3050
+</div></code></pre>
+<p>Class 3 (Idle): Performs I/O only when the system is idle.<br>
+<img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image116.png" alt="alt text"></p>
+<h2 id="%F0%9F%93%91-7-file-descriptors-used-by-a-process">📑 7. File Descriptors Used by a Process</h2>
+<p>Theory:</p>
+<p>Every open file, socket, or pipe in Linux is represented by a file descriptor. The lsof command lists these descriptors for a given process.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>lsof -p 3050 | head -5
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image117.png" alt="alt text"></p>
+<h2 id="%F0%9F%90%9B-8-trace-system-calls-of-a-process">🐛 8. Trace System Calls of a Process</h2>
+<p>Theory:</p>
+<p>strace intercepts and records system calls made by a process, useful for debugging and analyzing process behavior.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>strace -p 3050
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image118.png" alt="alt text"></p>
+<h2 id="%F0%9F%93%A1-9-find-process-using-a-port">📡 9. Find Process Using a Port</h2>
+<p>Theory:</p>
+<p>When debugging network issues, you can identify which process occupies a specific port using fuser or netstat.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>sudo fuser -n tcp 8080
+</div></code></pre>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image119.png" alt="alt text"></p>
+<h2 id="%F0%9F%93%8A-10-per-process-statistics">📊 10. Per-Process Statistics</h2>
+<p>Theory:</p>
+<p>pidstat provides detailed CPU usage statistics of individual processes over time, useful for monitoring performance trends.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>pidstat -p 3050 2 3
+</div></code></pre>
+<h2 id="%F0%9F%94%90-11-control-groups-cgroups-for-resource-limits">🔐 11. Control Groups (cgroups) for Resource Limits</h2>
+<p>Theory:</p>
+<p>Control Groups (cgroups) manage and limit system resources (CPU, memory, I/O) per process group. Ideal for containerization and multi-user systems.</p>
+<p>Command:</p>
+<pre class="hljs"><code><div>sudo cgcreate -g cpu,memory:/testgroup
+<span class="hljs-built_in">echo</span> 50000 | sudo tee /sys/fs/cgroup/cpu/testgroup/cpu.cfs_quota_us
+<span class="hljs-built_in">echo</span> 100M   | sudo tee /sys/fs/cgroup/memory/testgroup/memory.limit_in_bytes
+<span class="hljs-built_in">echo</span> 3050 | sudo tee /sys/fs/cgroup/cpu/testgroup/cgroup.procs
+</div></code></pre>
+<h2 id="%F0%9F%8E%AF-12-alternatives-to-nice--renice">🎯 12. Alternatives to nice / renice</h2>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Focus</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>chrt</strong></td>
+<td>Real-time scheduling</td>
+<td>Controls scheduling policy and priority</td>
+</tr>
+<tr>
+<td><strong>ionice</strong></td>
+<td>I/O priority control</td>
+<td>Manages disk I/O scheduling</td>
+</tr>
+<tr>
+<td><strong>taskset</strong></td>
+<td>CPU affinity</td>
+<td>Assigns processes to specific cores</td>
+</tr>
+<tr>
+<td><strong>cgroups</strong></td>
+<td>Resource limits</td>
+<td>Advanced resource management</td>
+</tr>
+<tr>
+<td><strong>systemd-run</strong></td>
+<td>systemd + cgroups</td>
+<td>Runs commands with defined resource weights</td>
+</tr>
+<tr>
+<td><strong>schedtool</strong></td>
+<td>Custom scheduling</td>
+<td>Allows fine-grained policy configuration</td>
+</tr>
+</tbody>
+</table>
+<p><img src="file:///Users/vaibhavkumar/Desktop/LINUX__LAB/image13.png" alt="alt text"></p>
+
+</body>
+
+</html>
