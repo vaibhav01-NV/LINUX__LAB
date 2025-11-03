@@ -23,7 +23,7 @@ So first ask:
 ➡️ Who is your audience? (Student, engineer, teacher, manager)
 ➡️ What is your goal? (Explain, instruct, or report results)
 
-![alt text](<ChatGPT Image Oct 16, 2025 at 11_36_09 AM-1.png>)
+![alt text](image12.png)
 --- 
 
 
